@@ -6,9 +6,69 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: stage_template
-        identifier: stage_template
+        name: k8s
+        identifier: k8s
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: service_remote
+          environment:
+            environmentRef: environment_remote_1
+            deployToAll: false
+            infrastructureDefinitions: <+input>
+          execution:
+            steps:
+              - stepGroup:
+                  name: Canary Deployment
+                  identifier: canaryDepoyment
+                  steps:
+                    - step:
+                        name: Canary Deployment
+                        identifier: canaryDeployment
+                        type: K8sCanaryDeploy
+                        timeout: 10m
+                        spec:
+                          instanceSelection:
+                            type: Count
+                            spec:
+                              count: 1
+                          skipDryRun: false
+                    - step:
+                        name: Canary Delete
+                        identifier: canaryDelete
+                        type: K8sCanaryDelete
+                        timeout: 10m
+                        spec: {}
+              - stepGroup:
+                  name: Primary Deployment
+                  identifier: primaryDepoyment
+                  steps:
+                    - step:
+                        name: Rolling Deployment
+                        identifier: rollingDeployment
+                        type: K8sRollingDeploy
+                        timeout: 10m
+                        spec:
+                          skipDryRun: false
+            rollbackSteps:
+              - step:
+                  name: Canary Delete
+                  identifier: rollbackCanaryDelete
+                  type: K8sCanaryDelete
+                  timeout: 10m
+                  spec: {}
+              - step:
+                  name: Rolling Rollback
+                  identifier: rollingRollback
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec: {}
         tags: {}
-        template:
-          templateRef: stage_remote
-          versionLabel: v1
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
