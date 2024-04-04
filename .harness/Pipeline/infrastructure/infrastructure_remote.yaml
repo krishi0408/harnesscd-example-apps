@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: infrastructure_remote
+  identifier: infrastructure_remote
+  orgIdentifier: default
+  projectIdentifier: Services_remote_test
+  environmentRef: environment_remote
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: account.K8s
+    namespace: default
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
