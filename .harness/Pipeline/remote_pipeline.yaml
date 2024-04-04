@@ -1,0 +1,14 @@
+pipeline:
+  name: remote_pipeline
+  identifier: remote_pipeline
+  projectIdentifier: Services_remote_test
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: stage_template
+        identifier: stage_template
+        tags: {}
+        template:
+          templateRef: stage_remote
+          versionLabel: v1
