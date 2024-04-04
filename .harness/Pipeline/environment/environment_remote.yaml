@@ -1,0 +1,8 @@
+environment:
+  name: environment_remote
+  identifier: environment_remote
+  description: ""
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: Services_remote_test
