@@ -17,8 +17,8 @@ template:
         infrastructureDefinitions:
           - identifier: infrastructure_remote
       service:
-        serviceRef: <+input>
-        serviceInputs: <+input>
+        serviceRef: service_remote
+        gitBranch: master
       execution:
         steps:
           - stepGroup:
