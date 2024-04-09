@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: infra_remote
+  identifier: infra_remote
+  orgIdentifier: default
+  projectIdentifier: Krishika_CD_Samples
+  environmentRef: env_remote
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: harness_k8s_infra_provisioning
+    namespace: default
+    releaseName: release-<+INFRA_KEY_SHORT_ID>
+  allowSimultaneousDeployments: false
