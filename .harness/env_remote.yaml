@@ -1,0 +1,8 @@
+environment:
+  name: env_remote
+  identifier: env_remote
+  description: ""
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: Krishika_CD_Samples
