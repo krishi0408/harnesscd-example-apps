@@ -1,0 +1,15 @@
+pipeline:
+  name: pipeline_remote
+  identifier: pipeline_remote
+  projectIdentifier: Krishika_CD_Samples
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: stage
+        identifier: stage
+        tags: {}
+        template:
+          templateRef: stage_template
+          versionLabel: v1
+          gitBranch: main
