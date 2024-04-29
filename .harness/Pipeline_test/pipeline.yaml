@@ -1,6 +1,6 @@
 pipeline:
   name: pipeline
-  identifier: pipeline
+  identifier: pipeline_name_change
   projectIdentifier: Krishika_CD_Samples
   orgIdentifier: default
   tags: {}
