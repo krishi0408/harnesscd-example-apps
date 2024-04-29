@@ -1,0 +1,63 @@
+pipeline:
+  name: pipeline
+  identifier: pipeline
+  projectIdentifier: Krishika_CD_Samples
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s2
+        identifier: s2
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Shell Script_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo heyy
+                    environmentVariables: []
+                    outputVariables: []
+                    executionTarget: {}
+                  timeout: 10m
+              - step:
+                  type: ShellScript
+                  name: ShellScript_2
+                  identifier: ShellScript_2
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: "\"export JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64&&export PATH=$JAVA_HOME/bin:$PATH&&echo $JAVA_HOME&&ls -l /usr/lib/jvm/&&java --version&&./gradlew clean build -Pbuildnumber='<+pipeline.sequenceId.toString()>'&&ls -l build/libs/\""
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+        when:
+          pipelineStatus: Success
+          condition: ""
+        strategy:
+          matrix:
+            var_in: <+<+pipeline.variables.var_input>.split(',')>
+  variables:
+    - name: services
+      type: String
+      description: ""
+      value: "{\"a\":[ { \"name\": \"svc1\", \"version\": \"<+pipeline.variables.version>\" }, { \"name\": \"svc2\", \"version\": \"1.0.2\" }, { \"name\": \"svc3\", \"version\": \"1.0.1\" } ]}"
+    - name: version
+      type: String
+      value: 1.0.0
+    - name: var_input
+      type: String
+      description: ""
+      required: false
+      value: <+input>
