@@ -1,6 +1,6 @@
 pipeline:
   name: pipeline
-  identifier: pipeline_name_change
+  identifier: pipeline
   projectIdentifier: Krishika_CD_Samples
   orgIdentifier: default
   tags: {}
@@ -37,7 +37,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: "\"export JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64&&export PATH=$JAVA_HOME/bin:$PATH&&echo $JAVA_HOME&&ls -l /usr/lib/jvm/&&java --version&&./gradlew clean build -Pbuildnumber='<+pipeline.sequenceId.toString()>'&&ls -l build/libs/\""
+                        script: echo <+pipeline.identifier>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
