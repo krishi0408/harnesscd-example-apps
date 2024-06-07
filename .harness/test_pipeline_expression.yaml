@@ -1,0 +1,32 @@
+pipeline:
+  name: test_pipeline_expression
+  identifier: test_pipeline_expression
+  projectIdentifier: Krishika_CD_Samples
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: test_expresion
+        identifier: test_expresiion
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: echo hello
+          caching:
+            enabled: false
+            paths: []
