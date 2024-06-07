@@ -1,0 +1,50 @@
+pipeline:
+  name: opentofu_sample
+  identifier: opentofu_sample
+  projectIdentifier: Krishika_CD_Samples
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: build_opentofu
+        identifier: build_opentofu
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: opentofu_connector
+              namespace: default
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: account.DockerAnonymous
+                    image: ghcr.io/opentofu/opentofu:latest
+                    shell: Sh
+                    command: |-
+                      tofu --version
+                      tofu init
+                      tofu apply -auto-approve
+          caching:
+            enabled: false
+            paths: []
+        variables:
+          - name: org_id
+            type: String
+            description: ""
+            required: false
+            value: <+pipeline.variables.id>
+  properties:
+    ci:
+      codebase:
+        connectorRef: test_connector_ci_step_skip
+        build: <+input>
