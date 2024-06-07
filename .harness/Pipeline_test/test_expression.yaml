@@ -1,0 +1,36 @@
+pipeline:
+  name: test_expression
+  identifier: test_expression
+  projectIdentifier: Krishika_CD_Samples
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: custom_stage
+        identifier: custom_stage
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo <+pipeline.variables.var_config>
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+  variables:
+    - name: var_config
+      type: String
+      description: ""
+      required: false
+      value: <+input>
