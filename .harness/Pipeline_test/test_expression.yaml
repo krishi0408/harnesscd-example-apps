@@ -34,3 +34,8 @@ pipeline:
       description: ""
       required: false
       value: <+input>
+  properties:
+    ci:
+      codebase:
+        connectorRef: harnessgitconnector
+        build: <+input>
