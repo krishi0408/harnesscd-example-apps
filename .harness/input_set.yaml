@@ -1,0 +1,15 @@
+inputSet:
+  name: input_set
+  identifier: input_set
+  orgIdentifier: default
+  projectIdentifier: Krishika_CD_Samples
+  pipeline:
+    identifier: test_expression
+    variables:
+      - name: var_config
+        type: String
+        value: <+input>
+    properties:
+      ci:
+        codebase:
+          build: <+input>
